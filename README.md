@@ -1,3 +1,6 @@
+<script src='https://cdn.jotfor.ms/agent/embedjs/0195424fb5d47897a72080768094791e9c32/embed.js'>
+</script>
+
 <a href="https://chat.vercel.ai/">
   <img alt="Next.js 14 and App Router-ready AI chatbot." src="app/(chat)/opengraph-image.png">
   <h1 align="center">Chat SDK</h1>
