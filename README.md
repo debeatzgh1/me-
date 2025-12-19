@@ -2,234 +2,209 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Debeatzgh AI Agents Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Debeatzgh – Digital Hub Carousel</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  overflow-y: auto !important;    /* PREVENT SCROLL LOCK */
+:root{
+  --primary:#16a34a;
+  --dark:#0f172a;
+  --light:#f8fafc;
 }
 
-/* Floating button */
-.floating-ai-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #0b8dff;
-  color: #fff;
-  padding: 10px 16px;
-  border-radius: 50px;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  z-index: 99999;
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+  background:linear-gradient(135deg,#f1f5f9,#e2e8f0);
+  color:#0f172a;
 }
 
-.floating-ai-btn img {
-  width: 20px;
-  height: 20px;
+/* ===== Carousel ===== */
+.carousel{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  padding:20px;
+  scroll-snap-type:x mandatory;
+}
+.card{
+  min-width:280px;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+  scroll-snap-align:start;
+  overflow:hidden;
+  transition:.3s;
+}
+.card:hover{transform:translateY(-6px);}
+.card img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+}
+.card-content{
+  padding:14px;
+}
+.card h3{
+  margin:0 0 6px;
+  font-size:18px;
+}
+.card p{
+  font-size:14px;
+  color:#475569;
+}
+.card button{
+  margin-top:10px;
+  width:100%;
+  border:none;
+  padding:10px;
+  border-radius:10px;
+  background:var(--primary);
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+.card button:hover{opacity:.9}
+
+/* ===== Modal ===== */
+#modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  z-index:9999;
+}
+#modal iframe{
+  width:100%;
+  height:100%;
+  border:none;
+  background:#fff;
+}
+.close{
+  position:absolute;
+  top:12px;
+  right:14px;
+  background:#000;
+  color:#fff;
+  padding:6px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  z-index:10;
 }
 
-/* Modal (NO SCROLL BLOCKING) */
-#agentModal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  z-index: 999999;
-  overflow-y: auto !important;     /* MAKE MODAL SCROLLABLE */
-  padding: 20px 0;
+/* ===== Floating Button ===== */
+#launcher{
+  position:fixed;
+  bottom:18px;
+  right:18px;
+  background:var(--primary);
+  color:#fff;
+  padding:14px 18px;
+  border-radius:999px;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 12px 30px rgba(0,0,0,.3);
+  animation:pulse 2s infinite;
+  z-index:1000;
 }
-
-/* Modal Window */
-.agent-modal-content {
-  background: #fff;
-  width: 95%;
-  max-width: 900px;
-  margin: auto;
-  border-radius: 12px;
-  padding: 20px;
-  position: relative;
-}
-
-.close-modal {
-  position: absolute;
-  top: 12px;
-  right: 20px;
-  font-size: 28px;
-  cursor: pointer;
-}
-
-/******** CAROUSEL ********/
-.carousel {
-  overflow: hidden;
-}
-
-.carousel-track {
-  display: flex;
-  transition: transform 0.4s ease-in-out;
-}
-
-.carousel-item {
-  min-width: 100%;
-}
-
-.agent-card {
-  text-align: center;
-}
-
-.agent-thumbnail {
-  width: 100%;
-  max-height: 220px;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-/***** SCROLLABLE IFRAME FIX ******/
-.agent-iframe-wrapper {
-  width: 100%;
-  height: 650px;
-  overflow-y: scroll !important;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  margin-top: 15px;
-  background: #fff;
-}
-
-.agent-iframe-wrapper iframe {
-  width: 100%;
-  height: 1000px;  /* large so user scrolls inside wrapper */
-  border: none;
-}
-
-/* Buttons */
-.view-btn {
-  background: #0faa4b;
-  padding: 10px 16px;
-  color: #fff;
-  border-radius: 8px;
-  text-decoration: none;
-  display: inline-block;
-  margin-top: 10px;
-}
-
-.carousel-nav {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 12px;
-}
-
-.carousel-btn {
-  background: #0b8dff;
-  padding: 8px 14px;
-  color: #fff;
-  border-radius: 8px;
-  cursor: pointer;
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+  100%{transform:scale(1)}
 }
 </style>
 </head>
 
 <body>
 
-<div class="floating-ai-btn" onclick="openModal()">
-  <img src="https://cdn-icons-png.flaticon.com/512/4712/4712100.png" />
-  AI Agents
+<h2 style="padding:16px 20px;">🚀 Debeatzgh Digital Ecosystem</h2>
+<p style="padding:0 20px;color:#475569">
+Explore AI tools, digital hubs, menus, updates, and collaboration spaces — all in one place.
+</p>
+
+<div class="carousel">
+
+<!-- AI Agent -->
+<div class="card">
+<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/07/createaboldeye-catchingsocialmediaflyerfeaturingtwosplitsectionsorcharacters2273204207149586064.jpg">
+<div class="card-content">
+<h3>AI Agent</h3>
+<p>Chat, automate tasks, and explore AI-powered assistance.</p>
+<button onclick="openFrame('https://debeatzgh1.github.io/ai-chat/')">Open</button>
+</div>
+</div>
+
+<!-- Tools -->
+<div class="card">
+<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/07/amoderncleanworkspaceshowcasingfront-endcodesnippetsonasleeklaptopscreensurroundedbytailwindcsslogoshtml5andfirebaseicons5315964892159237038.jpg">
+<div class="card-content">
+<h3>Tools Hub</h3>
+<p>Access widgets, generators, and productivity tools.</p>
+<button onclick="openFrame('https://debeatzgh1.github.io/debeatzgh/')">Open</button>
+</div>
+</div>
+
+<!-- Menu -->
+<div class="card">
+<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/11/17631483793116166606987906632973.jpg">
+<div class="card-content">
+<h3>Menu</h3>
+<p>Navigation hub to explore all projects.</p>
+<button onclick="openFrame('https://debeatzgh1.github.io/Home-/')">Open</button>
+</div>
+</div>
+
+<!-- E Hub -->
+<div class="card">
+<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/createamoderntech-inspiredlogoforadigitalcontenthubcalledappdategh4933013559151235986.jpg">
+<div class="card-content">
+<h3>E. Hub</h3>
+<p>Digital content and app update ecosystem.</p>
+<button onclick="openFrame('https://debeatzgh1.github.io/appdategh/')">Open</button>
+</div>
+</div>
+
+<!-- Collaborate -->
+<div class="card">
+<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/11/screenshot_20251121-103715_12380909417515729112.png">
+<div class="card-content">
+<h3>Collaborate</h3>
+<p>Connect with contributors and partners.</p>
+<button onclick="openFrame('https://debeatzgh1.github.io/Debeatzgh-Collaborators-Hub/')">Open</button>
+</div>
+</div>
+
+<!-- Updates -->
+<div class="card">
+<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/12/screenshot_20251206-065712_18880183932568216810.png">
+<div class="card-content">
+<h3>Updates</h3>
+<p>Latest announcements, releases, and news.</p>
+<button onclick="openFrame('https://debeatzgh1.github.io/dk/')">Open</button>
+</div>
+</div>
+
+</div>
+
+<!-- Floating Launcher -->
+<div id="launcher" onclick="openFrame('https://debeatzgh1.github.io/Home-/')">
+🚀 Launch Full Hub
 </div>
 
 <!-- Modal -->
-<div id="agentModal">
-  <div class="agent-modal-content">
-
-    <span class="close-modal" onclick="closeModal()">&times;</span>
-    <h2 style="text-align:center;">Debeatzgh AI Agent Hub</h2>
-
-    <div class="carousel">
-      <div class="carousel-track">
-
-        <!-- Item 1 -->
-        <div class="carousel-item">
-          <div class="agent-card">
-            <img class="agent-thumbnail" src="https://cdn-icons-png.flaticon.com/512/4712/4712100.png">
-            <h3>Side Hustle AI Agent</h3>
-            <p>Your personal guide for building profitable AI side hustles.</p>
-
-            <a class="view-btn" onclick="scrollInto('agent1')">View Agent</a>
-
-            <div id="agent1" class="agent-iframe-wrapper">
-              <iframe src="https://agent.jotform.com/0195479af1b879f3a82ea15cbaf3859eaa44?embedMode=iframe&background=1&shadow=1"></iframe>
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 2 -->
-        <div class="carousel-item">
-          <div class="agent-card">
-            <img class="agent-thumbnail" src="https://cdn-icons-png.flaticon.com/512/4712/4712100.png">
-            <h3>Debeatzgh AI Assistant</h3>
-            <p>Ideas, creativity, and productivity support for your digital journey.</p>
-
-            <a class="view-btn" onclick="scrollInto('agent2')">View Agent</a>
-
-            <div id="agent2" class="agent-iframe-wrapper">
-              <iframe src="https://agent.jotform.com/0195424fb5d47897a72080768094791e9c32?embedMode=iframe&background=1&shadow=1"></iframe>
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="carousel-item">
-          <div class="agent-card">
-            <img class="agent-thumbnail" src="https://cdn-icons-png.flaticon.com/512/4712/4712100.png">
-            <h3>AI Companion Assistant</h3>
-            <p>Your friendly learning and productivity partner.</p>
-
-            <a class="view-btn" onclick="scrollInto('agent3')">View Agent</a>
-
-            <div id="agent3" class="agent-iframe-wrapper">
-              <iframe src="https://agent.jotform.com/0195482a4e8d72b894a09678ddb9b513d564?embedMode=iframe&background=1&shadow=1"></iframe>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="carousel-nav">
-      <button class="carousel-btn" onclick="moveCarousel(-1)">Prev</button>
-      <button class="carousel-btn" onclick="moveCarousel(1)">Next</button>
-    </div>
-
-  </div>
+<div id="modal">
+<div class="close" onclick="closeFrame()">✕ Close</div>
+<iframe id="frame"></iframe>
 </div>
 
 <script>
-let index = 0;
-
-function moveCarousel(dir) {
-  const track = document.querySelector(".carousel-track");
-  const items = document.querySelectorAll(".carousel-item");
-
-  index += dir;
-  if (index < 0) index = items.length - 1;
-  if (index >= items.length) index = 0;
-
-  track.style.transform = `translateX(-${index * 100}%)`;
+function openFrame(url){
+  document.getElementById('modal').style.display='block';
+  document.getElementById('frame').src=url;
 }
-
-function openModal() {
-  document.getElementById("agentModal").style.display = "block";
-}
-
-function closeModal() {
-  document.getElementById("agentModal").style.display = "none";
-}
-
-function scrollInto(id) {
-  document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+function closeFrame(){
+  document.getElementById('modal').style.display='none';
+  document.getElementById('frame').src='';
 }
 </script>
 
