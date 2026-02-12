@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<!-- Elfsight FAQ | FAQ -->
+<script src="https://elfsightcdn.com/platform.js" async></script>
+<div class="elfsight-app-e78e03db-1434-4f96-aea0-fcbc6c92c429" data-elfsight-app-lazy></div>
+
+
+
+
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
