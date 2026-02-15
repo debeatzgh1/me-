@@ -171,7 +171,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Debeatzgh – Digital Hub Carousel</title>
+<title>My – Digital Hub Carousel</title>
 
 <style>
 :root{
@@ -285,7 +285,7 @@ body{
 
 <body>
 
-<h2 style="padding:16px 20px;">🚀 Debeatzgh Digital Ecosystem</h2>
+<h2 style="padding:16px 20px;">🚀 My Digital Ecosystem</h2>
 <p style="padding:0 20px;color:#475569">
 Explore AI tools, digital hubs, menus, updates, and collaboration spaces — all in one place.
 </p>
@@ -356,7 +356,7 @@ Explore AI tools, digital hubs, menus, updates, and collaboration spaces — all
 
 <!-- Floating Launcher -->
 <div id="launcher" onclick="openFrame('https://debeatzgh1.github.io/Home-/')">
-🚀 Launch Full Hub
+🚀 Home 
 </div>
 
 <!-- Modal -->
