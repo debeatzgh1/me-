@@ -1,3 +1,74 @@
+<section class="mt-32 mb-20 reveal">
+    <div class="glass-card overflow-hidden border-cyan-500/20 bg-black/40">
+        <div class="bg-white/5 px-4 py-2 border-b border-white/5 flex items-center justify-between">
+            <div class="flex gap-1.5">
+                <div class="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-green-500/50"></div>
+            </div>
+            <span class="text-[9px] font-mono text-gray-500 uppercase tracking-widest">System_Log_v3.0.sh</span>
+        </div>
+        
+        <div class="p-6 font-mono text-xs md:text-sm leading-relaxed min-h-[180px]">
+            <div id="log-container" class="space-y-1">
+                <div class="text-cyan-500/80">>> Initializing DeBeatzGH Digital Ecosystem...</div>
+                <div class="text-gray-500">[OK] Canvas Alpha-Layer Loaded.</div>
+                <div class="text-gray-500">[OK] AI Hub Nodes Synchronized.</div>
+                <div id="typing-log" class="text-white"></div>
+                <span class="inline-block w-2 h-4 bg-cyan-500 animate-pulse align-middle ml-1"></span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // SYSTEM LOG TYPING ENGINE
+    const logMessages = [
+        "Updating AI Agent prompt libraries...",
+        "Syncing E-Hub with latest digital assets.",
+        "Scanning collaborator network for new nodes.",
+        "Optimizing glassmorphism UI rendering...",
+        "System Status: All systems operational.",
+        "Welcome, User. Access granted to Decode AI Kit."
+    ];
+
+    let messageIndex = 0;
+    let charIndex = 0;
+    const typingElement = document.getElementById('typing-log');
+
+    function typeLog() {
+        if (messageIndex < logMessages.length) {
+            let currentMsg = logMessages[messageIndex];
+            
+            if (charIndex < currentMsg.length) {
+                typingElement.innerHTML += currentMsg.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeLog, 40); // Typing speed
+            } else {
+                // Message finished
+                setTimeout(() => {
+                    typingElement.innerHTML += `<br><span class="text-gray-500">[LOG] </span>`;
+                    charIndex = 0;
+                    messageIndex++;
+                    typeLog();
+                }, 1500); // Pause between lines
+            }
+        }
+    }
+
+    // Trigger typing when section is revealed
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setTimeout(typeLog, 500);
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+
+    observer.observe(document.getElementById('log-container'));
+</script>
+
 
 <html lang="en">
 <head>
