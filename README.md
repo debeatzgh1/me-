@@ -659,10 +659,6 @@ Explore AI tools, digital hubs, menus, updates, and collaboration spaces — all
 
 </div>
 
-<!-- Floating Launcher -->
-<div id="launcher" onclick="openFrame('https://form.svhrt.com/60f4a0aeedc1993c8c7b3989')">
-🚀 sggst 
-</div>
 
 <!-- Modal -->
 <div id="modal">
