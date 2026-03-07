@@ -3,6 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeBeatzGH | Digital Command Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
+        :root {
+            --accent: #00f2ff;
+            --bg-deep: #050507;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(0, 242, 255, 0.2);
+            --ui-glow: rgba(0, 242, 255, 0.4);
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: #f0f6fc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        /* --- BACKGROUND CANVAS --- */
+        #bgCanvas {
+            position: fixed; inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* --- FLOATING BROWSER BANNER --- */
+        .ui-browser-banner {
+            position: fixed;
+            top: 15px; left: 50%;
+            transform: translateX(-50%);
+            width: 90%; max-width: 340px;
+            height: 50px;
+            background: rgba(10, 10, 12, 0.9);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 0 10px 0 18px;
+            z-index: 10001;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 15px var(--ui-glow);
+        }
+
+        .slider-box { flex: 1; overflow: hidden; height: 22px; }
+        .slider-content {
+            display: flex; flex-direction: column;
+            animation: slideText 7s infinite cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        @keyframes slideText {
+            0%, 25% { transform: translateY(0); }
+            33%, 58% { transform: translateY(-22px); }
+            66%, 91% { transform: translateY(-44px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* --- CAROUSEL & CARDS --- */
+        .hub-carousel {
+            display: flex; gap: 20px;
+            overflow-x: auto; padding: 20px 0;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+        .hub-carousel::-webkit-scrollbar { display: none; }
+
+        .card {
+            min-width: 290px;
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 22px;
+            overflow: hidden;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            scroll-snap-align: center;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 45px rgba(0, 242, 255, 0.1);
+        }
+
+        /* --- OVERLAY IFRAME --- */
+        #master-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0, 0, 0, 0.98);
+            display: none; flex-direction: column;
+            z-index: 20000;
+            animation: overlayFade 0.4s ease;
+        }
+        @keyframes overlayFade {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- LAZY LOAD --- */
+        .reveal {
+            opacity: 0; transform: translateY(40px);
+            transition: all 0.9s ease-out;
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .pulse-node {
+            width: 7px; height: 7px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bgCanvas"></canvas>
+
+    <div class="ui-browser-banner">
+        <div class="slider-box">
+            <div class="slider-content font-bold text-[10px] uppercase tracking-widest text-cyan-400">
+                <span class="h-[22px] flex items-center gap-3"><div class="pulse-node"></div> AI Interface Active</span>
+                <span class="h-[22px] flex items-center gap-3"><div class="pulse-node"></div> Digital Hub Online</span>
+                <span class="h-[22px] flex items-center gap-3"><div class="pulse-node"></div> Syncing Ecosystem</span>
+            </div>
+        </div>
+        <button onclick="openLink('https://debeatzgh1.github.io/Home-/')" class="bg-cyan-500 text-black px-4 py-2 rounded-lg text-[9px] font-black uppercase hover:bg-white transition">Explore</button>
+    </div>
+
+    <main class="relative z-10 pt-36 px-6 max-w-6xl mx-auto">
+        <section class="mb-16 reveal">
+            <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 leading-none">
+                DIGITAL <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">ECOSYSTEM.</span>
+            </h1>
+            <p class="text-gray-400 max-w-lg text-sm md:text-base">
+                Synchronized access to AI agents, digital tools, and strategic collaboration nodes. One interface. Infinite possibilities.
+            </p>
+        </section>
+
+        <div class="hub-carousel reveal" style="transition-delay: 200ms;">
+            
+            <div class="card">
+                <div class="h-44 relative overflow-hidden">
+                    <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/07/createaboldeye-catchingsocialmediaflyerfeaturingtwosplitsectionsorcharacters2273204207149586064.jpg" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-lg text-cyan-400 mb-1">AI Agent</h3>
+                    <p class="text-[11px] text-gray-500 leading-relaxed mb-5">Next-gen automation and conversational intelligence tailored for your workflow.</p>
+                    <button onclick="openLink('https://debeatzgh1.github.io/ai-chat/')" class="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-cyan-500 hover:text-black transition">Initialize Node</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="h-44 relative overflow-hidden">
+                    <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/07/amoderncleanworkspaceshowcasingfront-endcodesnippetsonasleeklaptopscreensurroundedbytailwindcsslogoshtml5andfirebaseicons5315964892159237038.jpg" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-lg text-purple-400 mb-1">Tools Hub</h3>
+                    <p class="text-[11px] text-gray-500 leading-relaxed mb-5">A curated library of productivity widgets and developer resources.</p>
+                    <button onclick="openLink('https://debeatzgh1.github.io/debeatzgh/')" class="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-purple-500 hover:text-black transition">Open Toolkit</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="h-44 relative overflow-hidden">
+                    <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/createamoderntech-inspiredlogoforadigitalcontenthubcalledappdategh4933013559151235986.jpg" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-lg text-green-400 mb-1">E. Hub</h3>
+                    <p class="text-[11px] text-gray-500 leading-relaxed mb-5">Stay updated with digital content and software release cycles.</p>
+                    <button onclick="openLink('https://debeatzgh1.github.io/appdategh/')" class="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-green-500 hover:text-black transition">Launch Hub</button>
+                </div>
+            </div>
+
+        </div>
+
+        <section class="mt-20 mb-20 reveal">
+            <div class="bg-black/40 border border-white/5 rounded-2xl overflow-hidden font-mono text-[10px] md:text-xs">
+                <div class="bg-white/5 px-4 py-2 border-b border-white/5 flex gap-1.5">
+                    <div class="w-2 h-2 rounded-full bg-red-500/50"></div>
+                    <div class="w-2 h-2 rounded-full bg-yellow-500/50"></div>
+                    <div class="w-2 h-2 rounded-full bg-green-500/50"></div>
+                </div>
+                <div class="p-5 space-y-1" id="log-container">
+                    <div class="text-cyan-500/80">>> system_auth: Success</div>
+                    <div class="text-gray-500">>> node_sync: [##########] 100%</div>
+                    <div id="typewriter" class="text-white"></div>
+                    <span class="inline-block w-1.5 h-3 bg-cyan-500 animate-pulse"></span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="master-overlay">
+        <div class="h-14 border-b border-white/10 flex items-center justify-between px-6 bg-black">
+            <span class="text-[9px] font-black uppercase tracking-widest text-cyan-400">Node_Stream // Active_Session</span>
+            <button onclick="closeLink()" class="px-4 py-1.5 border border-white/10 rounded-lg text-[9px] font-bold text-gray-400 hover:text-white transition">CLOSE [ESC]</button>
+        </div>
+        <iframe id="master-frame" class="w-full flex-grow bg-white"></iframe>
+    </div>
+
+    <button onclick="openLink('https://form.svhrt.com/60f4a0aeedc1993c8c7b3989')" class="fixed bottom-6 right-6 z-50 bg-cyan-500 text-black px-6 py-3 rounded-full font-black text-xs shadow-2xl shadow-cyan-500/20 hover:scale-110 transition animate-bounce">
+        🚀 SUGGEST
+    </button>
+
+    <script>
+        // --- CANVAS ANIMATION ---
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = Array.from({length: 60}, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vX: (Math.random() - 0.5) * 0.4,
+                vY: (Math.random() - 0.5) * 0.4
+            }));
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(0, 242, 255, 0.4)';
+            particles.forEach(p => {
+                p.x += p.vX; p.y += p.vY;
+                if(p.x < 0 || p.x > canvas.width) p.vX *= -1;
+                if(p.y < 0 || p.y > canvas.height) p.vY *= -1;
+                ctx.beginPath(); ctx.arc(p.x, p.y, 1, 0, Math.PI * 2); ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        // --- OVERLAY SYSTEM ---
+        function openLink(url) {
+            document.getElementById('master-frame').src = url;
+            document.getElementById('master-overlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLink() {
+            document.getElementById('master-overlay').style.display = 'none';
+            document.getElementById('master-frame').src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- TYPEWRITER ---
+        const messages = ["Accessing Digital Ecosystem...", "Updating AI Prompt Libraries...", "Syncing with Collaborator Nodes...", "System Ready. Welcome, Architect."];
+        let mIdx = 0, cIdx = 0;
+        function type() {
+            if (mIdx < messages.length) {
+                if (cIdx < messages[mIdx].length) {
+                    document.getElementById('typewriter').innerHTML += messages[mIdx].charAt(cIdx);
+                    cIdx++; setTimeout(type, 50);
+                } else {
+                    setTimeout(() => {
+                        document.getElementById('typewriter').innerHTML += "<br>> ";
+                        mIdx++; cIdx = 0; type();
+                    }, 1500);
+                }
+            }
+        }
+
+        // --- LAZY LOAD & INIT ---
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.reveal').forEach(el => {
+                if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
+            });
+        });
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas(); animate(); type();
+        document.addEventListener('keydown', (e) => { if(e.key === "Escape") closeLink(); });
+        setTimeout(() => document.querySelector('.reveal').classList.add('active'), 100);
+    </script>
+</body>
+</html>
+
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root {
             --ui-accent: #00f2ff; /* Cyber Cyan */
