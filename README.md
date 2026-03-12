@@ -748,7 +748,7 @@ Explore AI tools, digital hubs, menus, updates, and collaboration spaces — all
 <div class="card-content">
 <h3>Menu</h3>
 <p>Navigation hub to explore all projects.</p>
-<button onclick="openFrame('https://debeatzgh1.github.io/Home-/')">Open</button>
+<button onclick="openUrl('https://debeatzgh1.github.io/-Firebase-Login-Popup/')">Open</button>
 </div>
 </div>
 
