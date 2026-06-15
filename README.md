@@ -452,7 +452,7 @@
                 <span class="h-[22px] flex items-center gap-3"><div class="pulse-node"></div> Syncing Ecosystem</span>
             </div>
         </div>
-        <button onclick="openLink('https://debeatzgh1.github.io/Home-/')" class="bg-cyan-500 text-black px-4 py-2 rounded-lg text-[9px] font-black uppercase hover:bg-white transition">Explore</button>
+        <button onclick="openLink('https://debeatzgh1.github.io/firebase-front-end-components/')" class="bg-cyan-500 text-black px-4 py-2 rounded-lg text-[9px] font-black uppercase hover:bg-white transition">Explore</button>
     </div>
 
     <main class="relative z-10 pt-36 px-6 max-w-6xl mx-auto">
